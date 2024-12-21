@@ -24,7 +24,13 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.3" />
+        <PackageReference Include="LiteDB.Async" Version="0.1.8" />
         <PackageReference Include="Material.Icons.Avalonia" Version="2.1.10" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
         <PackageReference Include="SukiUI" Version="6.0.0-rc" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Chronos.Core\Chronos.Core.csproj" />
     </ItemGroup>
 </Project>
