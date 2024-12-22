@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:suki="https://github.com/kikipoulet/SukiUI"
+        xmlns:controls="clr-namespace:Chronos.Controls"
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:views="clr-namespace:Chronos.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Chronos.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -15,7 +18,31 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+    
+    <suki:SukiWindow.Hosts>
+        <suki:SukiDialogHost x:Name="SukiDialogHost"/>
+    </suki:SukiWindow.Hosts>
+    
+    <suki:SukiSideMenu>
+        <suki:SukiSideMenu.Items>
+            <suki:SukiSideMenuItem Header="Главная" Classes="Compact">
+                <suki:SukiSideMenuItem.Icon>
+                    <avalonia:MaterialIcon Kind="ViewDashboard"/>
+                </suki:SukiSideMenuItem.Icon>
+                <suki:SukiSideMenuItem.PageContent>
+                    <views:DashboardView/>
+                </suki:SukiSideMenuItem.PageContent>
+            </suki:SukiSideMenuItem>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </suki:SukiSideMenu.Items>
 
+
+        <suki:SukiSideMenu.HeaderContent>
+            <!-- Header Content -->
+        </suki:SukiSideMenu.HeaderContent>
+
+        <suki:SukiSideMenu.FooterContent>
+            <!-- Footer Content -->
+        </suki:SukiSideMenu.FooterContent>
+    </suki:SukiSideMenu>
 </suki:SukiWindow>

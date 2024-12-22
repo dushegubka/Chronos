@@ -1,0 +1,32 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Chronos.Controls"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI"
+        x:DataType="controls:TimeSheetControl">
+    <Design.PreviewWith>
+        <controls:TimeSheetControl />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|TimeSheetControl">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel 
+                    Orientation="Vertical"
+                    Spacing="8">
+                    <TextBox Watermark="Заказчик" Text="{TemplateBinding Customer, Mode=TwoWay}"/>
+                    <TextBox Watermark="Наименование работ" Text="{TemplateBinding WorkName}"/>
+                    <DatePicker SelectedDate="{TemplateBinding Date}" />
+                    <NumericUpDown Watermark="Количество часов" 
+                                   suki:NumericUpDownExtensions.Unit="ч."
+                                   Minimum="1"
+                                   Value="{TemplateBinding Hours}"/>
+                    <NumericUpDown Watermark="Цена в час" 
+                                   suki:NumericUpDownExtensions.Unit="руб."  
+                                   Minimum="0"
+                                   Value="{TemplateBinding PricePerHour}"/>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

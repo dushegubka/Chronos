@@ -16,11 +16,11 @@ public class TimeSheetRepository : ITimeSheetRepository
         return sheetEntry;
     }
 
-    public async Task<List<TimeSheet>> GetAllAsync()
+    public async Task<IEnumerable<TimeSheet>> GetAllAsync()
     {
         var result = await  _context.TimeSheets.FindAllAsync();
         
-        return result.ToList();
+        return result;
     }
 
     public async Task<TimeSheet> CreateAsync(TimeSheetCreateDto createDto)

@@ -1,0 +1,75 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:viewModels="clr-namespace:Chronos.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Chronos.Views.DashboardView"
+             x:DataType="viewModels:DashboardViewModel">
+    <Grid Margin="8" VerticalAlignment="Stretch"
+          RowDefinitions="Auto, *">
+        <suki:GlassCard Grid.Row="0" Margin="0 0 0 8" Padding="6 ">
+            <Grid ColumnDefinitions="Auto, *,Auto, Auto">
+                <Button Grid.Column="0" 
+                        Content="Создать" 
+                        Height="35"
+                        Margin="10 0 0 0"
+                        Classes="Flat"
+                        Command="{Binding ShowCreateDialogCommand}"/>
+                <StackPanel
+                    Grid.Column="2"
+                    Orientation="Horizontal" Spacing="6">
+                    <Button
+                        IsEnabled="{Binding IsButtonPanelAvailable}"
+                        Height="35">
+                        <Button.Content>
+                            <avalonia:MaterialIcon Kind="Delete"/>
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        IsEnabled="{Binding IsButtonPanelAvailable}"
+                        Command="{Binding ShowUpdateDialogCommand}"
+                        Height="35">
+                        <Button.Content>
+                            <avalonia:MaterialIcon Kind="Edit"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+                <TextBox Grid.Column="3" 
+                         MinWidth="220"
+                         MaxWidth="300"
+                         suki:TextBoxExtensions.AddDeleteButton="True"
+                         Watermark="Поиск"/>
+            </Grid>
+        </suki:GlassCard>
+        <suki:GlassCard Grid.Row="1" VerticalAlignment="Stretch">
+            <DataGrid
+                IsReadOnly="True"
+                ItemsSource="{Binding TimeSheets}"
+                VerticalAlignment="Stretch" 
+                HorizontalAlignment="Stretch"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedSheet}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat='dd.MM.yyyy'}"/>
+                    <DataGridTextColumn Header="Заказчик" Binding="{Binding Customer}"/>
+                    <DataGridTextColumn Header="Наименование работ" Binding="{Binding WorkName}" 
+                                        MaxWidth="230"/>
+                    <DataGridTextColumn Header="Время" Binding="{Binding Hours}"/>
+                    <DataGridTextColumn Header="Цена в час" Binding="{Binding PricePerHour}"/>
+                    <DataGridTextColumn Header="Сумма" Binding="{Binding Amount}"/>
+                </DataGrid.Columns>
+                <DataGrid.Styles>
+                    <Style Selector="DataGridCell TextBlock">
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                    </Style>
+                    <Style Selector="DataGridRow">
+                        
+                    </Style>
+                </DataGrid.Styles>
+            </DataGrid>
+        </suki:GlassCard>
+    </Grid>
+</UserControl>

@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Folder Include="Extensions\" />
         <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
     </ItemGroup>
@@ -27,6 +28,7 @@
         <PackageReference Include="LiteDB.Async" Version="0.1.8" />
         <PackageReference Include="Material.Icons.Avalonia" Version="2.1.10" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+        <PackageReference Include="ReactiveUI.Validation" Version="4.1.1" />
         <PackageReference Include="SukiUI" Version="6.0.0-rc" />
     </ItemGroup>
 

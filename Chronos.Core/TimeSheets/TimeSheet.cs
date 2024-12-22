@@ -14,5 +14,5 @@ public class TimeSheet
     
     public int Hours { get; set; }
     
-    public decimal Total => PricePerHour * Hours;
+    public decimal Amount => PricePerHour * Hours;
 }

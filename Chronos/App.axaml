@@ -15,5 +15,6 @@
         <FluentTheme />
         <suki:SukiTheme ThemeColor="Blue"  />
         <avalonia:MaterialIconStyles />
+        <StyleInclude Source="Controls/TimeSheetControl.axaml"/>
     </Application.Styles>
 </Application>

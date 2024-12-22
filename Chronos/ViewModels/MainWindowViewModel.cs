@@ -1,6 +1,14 @@
-﻿namespace Chronos.ViewModels;
+﻿using Chronos.Core;
+using Chronos.Core.TimeSheets;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Chronos.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    public string Greeting { get; } = "Welcome to Avalonia!";
+    public MainWindowViewModel()
+    {
+    }
+    
+    public string Greeting { get; } = "Welcome to Avalonia! asd";
 }

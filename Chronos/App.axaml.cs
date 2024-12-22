@@ -2,11 +2,16 @@ using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Chronos.Abstractions;
 using Chronos.Core;
 using Chronos.Core.TimeSheets;
 using Chronos.ViewModels;
+using Chronos.ViewModels.Modals;
 using Chronos.Views;
+using Chronos.Views.Modals;
 using Microsoft.Extensions.DependencyInjection;
+using SukiUI.Dialogs;
+using SukiUI.Toasts;
 
 namespace Chronos;
 
@@ -40,6 +45,11 @@ public partial class App : Application
     public IServiceProvider BuildServices()
     {
         var services = new ServiceCollection();
+
+        services.AddSingleton<ISukiDialogManager, SukiDialogManager>();
+        services.AddSingleton<ISukiToastManager, SukiToastManager>();
+        services.AddSingleton<IModalService, ModalService>();
+        
         services.AddSingleton<ApplicationDbContext>();
         services.AddSingleton<ITimeSheetRepository, TimeSheetRepository>();
         
