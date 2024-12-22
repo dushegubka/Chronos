@@ -1,6 +1,9 @@
-﻿using Chronos.Abstractions;
+﻿using System;
+using Chronos.Abstractions;
 using Chronos.Core.TimeSheets;
+using Chronos.Events;
 using Chronos.Views.Modals;
+using ReactiveUI;
 using SukiUI.Dialogs;
 
 namespace Chronos;
@@ -27,6 +30,24 @@ public class ModalService : IModalService
         var modal = _dialogManager.CreateDialog();
         modal.SetTitle("Редактирование записи");
         modal.SetContent(new UpdateSheetModalView(timeSheet));
+        modal.TryShow();
+    }
+
+    public void ShowConfirmDeleting(Guid sheetId)
+    {
+        var modal = _dialogManager.CreateDialog();
+        modal.SetTitle("Подтвердите удаление");
+        modal.SetContent("Вы действительно хотите удалить запись?");
+        modal.SetCanDismissWithBackgroundClick(true);
+        
+        modal.WithActionButton("Удалить", _ =>
+        {
+            MessageBus.Current.SendMessage(new TimeSheetDeletingEventArgs(sheetId));
+            _dialogManager.DismissDialog();
+        } );
+        
+        modal.WithActionButton("Отмена", _ => { _dialogManager.DismissDialog(); });
+        
         modal.TryShow();
     }
 }

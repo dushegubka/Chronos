@@ -23,6 +23,7 @@
                     Orientation="Horizontal" Spacing="6">
                     <Button
                         IsEnabled="{Binding IsButtonPanelAvailable}"
+                        Command="{Binding ShowDeleteDialogCommand}"
                         Height="35">
                         <Button.Content>
                             <avalonia:MaterialIcon Kind="Delete"/>

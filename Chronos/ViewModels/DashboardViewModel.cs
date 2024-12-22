@@ -39,6 +39,8 @@ public class DashboardViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> ShowCreateDialogCommand { get; set; }
     
     public ReactiveCommand<Unit, Unit> ShowUpdateDialogCommand { get; set; }
+    
+    public ReactiveCommand<Unit, Unit> ShowDeleteDialogCommand { get; set; }
 
     private async void LoadTimeSheets()
     {
@@ -80,8 +82,19 @@ public class DashboardViewModel : ViewModelBase
                 
                 TimeSheets.Remove(entry);
                 TimeSheets.Add(x.TimeSheet);
+            });
 
-                TimeSheets.OrderBy(x => x.Date);
+        MessageBus.Current.Listen<TimeSheetDeletingEventArgs>()
+            .Where(x => x.SheetId != Guid.Empty)
+            .Subscribe(async void (x) =>
+            {
+                var repository = App.Current.Services.GetService<ITimeSheetRepository>();
+                var isDeleted = await repository?.DeleteAsync(x.SheetId);
+
+                if (isDeleted)
+                {
+                    TimeSheets.Remove(TimeSheets.FirstOrDefault(y => y.Id == x.SheetId)!);
+                }
             });
     }
 
@@ -92,17 +105,17 @@ public class DashboardViewModel : ViewModelBase
             var modalService = App.Current.Services.GetService<IModalService>();
             modalService?.ShowCreateSheetModal();
         });
-
-        ShowUpdateDialogCommand = ReactiveCommand.Create(() =>
-        {
-            var modalService = App.Current.Services.GetService<IModalService>();
-            modalService?.ShowUpdateSheetModal(SelectedSheet);
-        });
         
         ShowUpdateDialogCommand = ReactiveCommand.Create(() =>
         {
             var modalService = App.Current.Services.GetService<IModalService>();
             modalService?.ShowUpdateSheetModal(SelectedSheet);
+        });
+
+        ShowDeleteDialogCommand = ReactiveCommand.Create(() =>
+        {
+            var modelService = App.Current.Services.GetService<IModalService>();
+            modelService?.ShowConfirmDeleting(SelectedSheet.Id);
         });
     }
 }
